@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AnalyticsService } from '../../firebase.config';
 
 @Component({
   selector: 'app-home',
@@ -60,7 +61,12 @@ import { RouterLink } from '@angular/router';
   `,
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  
+  ngOnInit() {
+    // Log home page load event
+    AnalyticsService.logHomePageLoad();
+  }
   skills = [
     {
       name: 'Angular',

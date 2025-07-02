@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AnalyticsService } from '../../firebase.config';
 
 @Component({
   selector: 'app-contact',
@@ -13,6 +14,14 @@ import { CommonModule } from '@angular/common';
       </div>
 
       <div class="contact-content">
+                   <!-- Availability Status -->
+          <div class="availability-status">
+            <div class="status-indicator available"></div>
+            <div class="status-text">
+              <h3>Currently Available</h3>
+              <p>Open to new opportunities and collaborations</p>
+            </div>
+          </div>
         <div class="contact-info-grid">
           <!-- Email Section -->
           <div class="contact-card email-card">
@@ -22,7 +31,7 @@ import { CommonModule } from '@angular/common';
             <div class="contact-details">
               <h3>Email</h3>
                              <p class="contact-value">nishaposwal321&#64;example.com</p>
-                             <a href="mailto:nishaposwal321&#64;example.com" class="contact-link">
+                             <a href="mailto:nishaposwal321&#64;example.com" class="contact-link" (click)="logEmailClick()">
                 Send Email <i class="fas fa-external-link-alt"></i>
               </a>
             </div>
@@ -37,7 +46,7 @@ import { CommonModule } from '@angular/common';
               <h3>Phone</h3>
               <p class="contact-value">+91 8126139270</p>
               <p class="contact-value">+971 586818826</p>
-              <a href="tel:+918126139270" class="contact-link">
+              <a href="tel:+918126139270" class="contact-link" (click)="logPhoneClick()">
                 Call Now <i class="fas fa-external-link-alt"></i>
               </a>
             </div>
@@ -51,27 +60,53 @@ import { CommonModule } from '@angular/common';
             <div class="contact-details">
               <h3>LinkedIn</h3>
               <p class="contact-value">linkedin.com/in/nisha-poswal</p>
-              <a href="https://linkedin.com/in/nisha-poswal" target="_blank" class="contact-link">
+              <a href="https://linkedin.com/in/nisha-poswal" target="_blank" class="contact-link" (click)="logLinkedInClick()">
                 View Profile <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- GitHub Repository Section -->
+          <div class="contact-card github-card">
+            <div class="contact-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Portfolio Repository</h3>
+              <p class="contact-value">github.com/nishaposwal/Portfolio</p>
+              <a href="https://github.com/nishaposwal/Portfolio.git" target="_blank" class="contact-link" (click)="logGitHubClick()">
+                View Repository <i class="fas fa-external-link-alt"></i>
               </a>
             </div>
           </div>
         </div>
 
     
-        <!-- Availability Status -->
-        <div class="availability-status">
-          <div clas s="status-indicator available"></div>
-          <div class="status-text">
-            <h3>Currently Available</h3>
-            <p>Open to new opportunities and collaborations</p>
-          </div>
-        </div>
+       
       </div>
     </div>
   `,
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  // Component logic can be added here if needed
+  
+  // Log email click event
+  logEmailClick() {
+    AnalyticsService.logContactInteraction('email');
+  }
+
+  // Log phone click event
+  logPhoneClick() {
+    AnalyticsService.logContactInteraction('phone');
+  }
+
+  // Log LinkedIn click event
+  logLinkedInClick() {
+    AnalyticsService.logContactInteraction('linkedin');
+  }
+
+  // Log GitHub click event
+  logGitHubClick() {
+    AnalyticsService.logContactInteraction('github');
+  }
 } 

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { AnalyticsService } from "../../firebase.config";
 
 @Component({
   selector: "app-projects",
@@ -21,6 +22,7 @@ import { CommonModule } from "@angular/common";
               class="project-card"
               *ngFor="let project of projects; let i = index"
               [style.animation-delay]="getAnimationDelay(i)"
+              (click)="logProjectView(project.title)"
             >
               <div class="project-image">
                 <img [src]="project.image" [alt]="project.title" />
@@ -218,5 +220,10 @@ export class ProjectsComponent {
 
   getAnimationDelay(index: number): string {
     return `${index * 0.2}s`;
+  }
+
+  // Log project view when project card is clicked
+  logProjectView(projectTitle: string) {
+    AnalyticsService.logProjectView(projectTitle);
   }
 }

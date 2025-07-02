@@ -66,6 +66,10 @@
   &.linkedin-card {
     border-left: 4px solid #0077b5;
   }
+  
+  &.github-card {
+    border-left: 4px solid #333;
+  }
 }
 
 .contact-icon {
@@ -88,6 +92,10 @@
   
   .linkedin-card & {
     background: linear-gradient(45deg, #0077b5, #00a0dc);
+  }
+  
+  .github-card & {
+    background: linear-gradient(45deg, #333, #666);
   }
 }
 
@@ -253,6 +261,7 @@
   border-radius: 15px;
   padding: 1.5rem;
   animation: fadeInUp 0.8s ease-out 0.6s both;
+  margin-bottom: 1rem;
   
   .status-indicator {
     width: 20px;
@@ -278,6 +287,7 @@
     }
   }
 }
+
 
 @keyframes fadeInUp {
   from {
