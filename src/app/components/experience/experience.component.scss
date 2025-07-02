@@ -1,0 +1,543 @@
+/* Experience Hero */
+.experience-hero {
+  padding: 120px 0 80px;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+  text-align: center;
+
+  .page-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+/* Timeline */
+.experience-timeline {
+  padding: 80px 0;
+  background: rgba(0, 0, 0, 0.3);
+
+  .timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #e50914, #ff6b6b);
+      transform: translateX(-50%);
+    }
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    &.active {
+      .timeline-content {
+        transform: scale(1.02);
+        box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2);
+      }
+    }
+
+    &:nth-child(odd) .timeline-content {
+      margin-left: 0;
+      margin-right: 50%;
+      padding-right: 3rem;
+      text-align: right;
+
+      &::before {
+        right: -10px;
+        left: auto;
+      }
+    }
+
+    &:nth-child(even) .timeline-content {
+      margin-left: 50%;
+      margin-right: 0;
+      padding-left: 3rem;
+      text-align: left;
+
+      &::before {
+        left: -10px;
+        right: auto;
+      }
+    }
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: all 0.3s ease;
+
+    .marker-dot {
+      width: 20px;
+      height: 20px;
+      background: #ffffff;
+      border: 3px solid #e50914;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+    }
+
+    .marker-pulse {
+      width: 30px;
+      height: 30px;
+      background: rgba(229, 9, 20, 0.3);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 2s infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &.active {
+      .marker-dot {
+        background: #e50914;
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+      }
+
+      .marker-pulse {
+        opacity: 1;
+      }
+    }
+  }
+
+  .timeline-content {
+    position: relative;
+    padding: 2rem;
+    transition: all 0.3s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid rgba(255, 255, 255, 0.1);
+    }
+
+    &.expanded {
+      padding: 2.5rem;
+    }
+
+    .experience-header {
+      margin-bottom: 1rem;
+
+      .job-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+      }
+
+      .company {
+        display: block;
+        font-size: 1.1rem;
+        color: #e50914;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+      }
+
+      .duration {
+        display: block;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.full-time {
+          background: rgba(76, 175, 80, 0.2);
+          color: #4caf50;
+          border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        &.contract {
+          background: rgba(255, 152, 0, 0.2);
+          color: #ff9800;
+          border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+      }
+    }
+
+    .job-description {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .technologies {
+      margin-bottom: 1rem;
+
+      .tech-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(229, 9, 20, 0.2);
+        color: #e50914;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin: 0.25rem;
+        border: 1px solid rgba(229, 9, 20, 0.3);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+
+        &:hover {
+          background: rgba(229, 9, 20, 0.3);
+          transform: translateY(-2px);
+        }
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .achievements {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      margin-bottom: 1rem;
+
+      &.show {
+        max-height: 300px;
+      }
+
+      h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 0.5rem;
+          padding-left: 1.5rem;
+          position: relative;
+          animation: fadeInLeft 0.5s ease-out forwards;
+          opacity: 0;
+
+          &::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #e50914;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .experience-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+
+      &.show {
+        max-height: 100px;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .stat-number {
+          display: block;
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #e50914;
+          margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+}
+
+/* Education Section */
+.education-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(26, 26, 46, 0.4) 100%);
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: #ffffff;
+  }
+
+  .education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .education-card {
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+
+    .education-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #e50914;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .institution {
+      font-size: 1rem;
+      color: #e50914;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .year {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .education-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(229, 9, 20, 0.2);
+      color: #e50914;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(229, 9, 20, 0.3);
+    }
+  }
+}
+
+/* Achievements Section */
+.achievements-section {
+  padding: 80px 0;
+  background: rgba(0, 0, 0, 0.3);
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: #ffffff;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .achievement-card {
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+
+    .achievement-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #e50914;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .achievement-metric {
+      .metric-value {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #e50914;
+        margin-bottom: 0.25rem;
+      }
+
+      .metric-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .experience-hero {
+    .page-title {
+      font-size: 2.5rem;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .experience-timeline {
+    .timeline {
+      &::before {
+        left: 20px;
+      }
+    }
+
+    .timeline-item {
+      .timeline-marker {
+        left: 20px;
+      }
+
+      .timeline-content {
+        margin-left: 50px !important;
+        margin-right: 0 !important;
+        padding-left: 2rem !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+
+        &::before {
+          left: -10px !important;
+          right: auto !important;
+          border-right: 10px solid rgba(255, 255, 255, 0.1) !important;
+          border-left: none !important;
+        }
+      }
+    }
+  }
+
+  .education-section,
+  .achievements-section {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .education-grid,
+    .achievements-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+} 

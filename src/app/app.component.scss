@@ -1,0 +1,525 @@
+/* Intro Container */
+.intro-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Start Button */
+.start-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .start-content {
+    text-align: center;
+    color: white;
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    .start-btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(229, 9, 20, 0.3);
+      }
+    }
+  }
+}
+
+/* Netflix-style Intro Animation */
+.netflix-intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease-in-out;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+  }
+
+  .intro-content {
+    text-align: center;
+  }
+
+  .netflix-logo {
+    position: relative;
+    display: inline-block;
+    animation: netflixIntro 4s ease-out;
+    
+    .logo-text {
+      font-size: 8rem;
+      font-weight: 900;
+      color: #e50914;
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
+      animation: netflixTextPulse 2s ease-in-out infinite 2s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(229, 9, 20, 0.3) 0%, transparent 70%);
+      animation: netflixGlowPulse 2s ease-in-out infinite 2s;
+      z-index: 1;
+    }
+  }
+}
+
+@keyframes netflixIntro {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(0.1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes netflixTextPulse {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(229, 9, 20, 0.8);
+  }
+}
+
+@keyframes netflixGlowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* Profile Selection */
+.profile-selection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .selection-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .profiles-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 800px;
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #e50914;
+      transform: translateY(-5px);
+    }
+
+    &.selected {
+      background: rgba(229, 9, 20, 0.3);
+      border-color: #e50914;
+      transform: scale(1.05);
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e50914, #ff6b6b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      color: #ffffff;
+      transition: all 0.3s ease;
+
+      i {
+        transition: all 0.3s ease;
+      }
+    }
+
+    .profile-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-align: center;
+    }
+  }
+}
+
+/* Main App Container */
+.main-app {
+  display: block;
+}
+
+/* Netflix-style Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 20px;
+  }
+
+  .nav-brand {
+    .brand-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e50914;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ff6b6b;
+      }
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+
+    li {
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &:hover {
+          color: #e50914;
+        }
+
+        &.active {
+          color: #e50914;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #e50914, #ff6b6b);
+            border-radius: 1px;
+          }
+        }
+      }
+    }
+  }
+
+  .nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(229, 9, 20, 0.2);
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    border-radius: 20px;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(229, 9, 20, 0.3);
+      border-color: rgba(229, 9, 20, 0.5);
+    }
+
+    .profile-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .profile-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #ffffff;
+    }
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+    z-index: 1001;
+
+    span {
+      width: 25px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    &.active {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+}
+
+/* Main content */
+main {
+  margin-top: 80px;
+  min-height: calc(100vh - 160px);
+}
+
+/* Footer */
+.footer {
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 0;
+  text-align: center;
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    .nav-profile {
+      margin-left: 0.5rem;
+      padding: 0.4rem 0.8rem;
+
+      .profile-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+      }
+
+      .profile-name {
+        font-size: 0.8rem;
+      }
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 80px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 2rem;
+      transition: left 0.3s ease;
+      z-index: 1000;
+
+      &.active {
+        left: 0;
+      }
+
+      li {
+        margin: 1rem 0;
+
+        a {
+          font-size: 1.2rem;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(229, 9, 20, 0.2);
+          }
+        }
+      }
+    }
+
+    .nav-toggle {
+      display: flex !important;
+    }
+  }
+
+  .netflix-intro {
+    .netflix-logo {
+      .logo-text {
+        font-size: 4rem;
+      }
+    }
+  }
+
+  .profile-selection {
+    .selection-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .profiles-grid {
+      gap: 1rem;
+      max-width: 600px;
+    }
+
+    .profile-card {
+      padding: 1.5rem;
+
+      .profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .profile-name {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-selection {
+      .profiles-grid {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .profile-card {
+        padding: 1rem;
+
+        .profile-avatar {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+        }
+
+        .profile-name {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+} 
