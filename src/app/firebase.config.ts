@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics, logEvent, setAnalyticsCollectionEnabled } from 'firebase/analytics';
+import { initializeApp, type FirebaseApp } from 'firebase/app';
+import type { Analytics } from 'firebase/analytics';
 
 // Your Firebase configuration
 // Replace with your actual Firebase config from Firebase Console
@@ -13,95 +13,147 @@ const firebaseConfig = {
   measurementId: "G-XXXXXXXXXX" 
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let firebaseApp: FirebaseApp | null = null;
+let analytics: Analytics | null = null;
+let analyticsModule: (typeof import('firebase/analytics')) | null = null;
 
-// Initialize Analytics
-export const analytics = getAnalytics(app);
+function isBrowser(): boolean {
+  return typeof window !== 'undefined';
+}
+
+function ensureFirebaseApp(): FirebaseApp | null {
+  if (!isBrowser()) return null;
+  if (firebaseApp) return firebaseApp;
+  firebaseApp = initializeApp(firebaseConfig);
+  return firebaseApp;
+}
+
+async function ensureAnalytics(): Promise<Analytics | null> {
+  if (!isBrowser()) return null;
+  if (analytics) return analytics;
+
+  const app = ensureFirebaseApp();
+  if (!app) return null;
+
+  analyticsModule = await import('firebase/analytics');
+  const supported = await analyticsModule.isSupported().catch(() => false);
+  if (!supported) return null;
+
+  analytics = analyticsModule.getAnalytics(app);
+  return analytics;
+}
 
 // Analytics service
 export class AnalyticsService {
   
   // Log custom events
   static logCustomEvent(eventName: string, parameters?: { [key: string]: any }) {
-    try {
-      logEvent(analytics, eventName, parameters);
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, eventName, parameters);
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Log page views
   static logPageView(pageName: string) {
-    try {
-      logEvent(analytics, 'page_view', {
-        page_title: pageName,
-        page_location: window.location.href
-      });
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'page_view', {
+          page_title: pageName,
+          page_location: window.location.href
+        });
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Log contact interactions
   static logContactInteraction(contactType: 'email' | 'phone' | 'linkedin' | 'github') {
-    try {
-      logEvent(analytics, 'contact_interaction', {
-        contact_type: contactType,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'contact_interaction', {
+          contact_type: contactType,
+          timestamp: new Date().toISOString()
+        });
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Log home page load
   static logHomePageLoad() {
-    try {
-      logEvent(analytics, 'home_page_load', {
-        timestamp: new Date().toISOString(),
-        user_agent: navigator.userAgent
-      });
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'home_page_load', {
+          timestamp: new Date().toISOString(),
+          user_agent: navigator.userAgent
+        });
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Log project interactions
   static logProjectView(projectName: string) {
-    try {
-      logEvent(analytics, 'project_view', {
-        project_name: projectName,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'project_view', {
+          project_name: projectName,
+          timestamp: new Date().toISOString()
+        });
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Log navigation events
   static logNavigation(navigationType: string) {
-    try {
-      logEvent(analytics, 'navigation', {
-        navigation_type: navigationType,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
-      // Silent error handling for production
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'navigation', {
+          navigation_type: navigationType,
+          timestamp: new Date().toISOString()
+        });
+      } catch {
+        // Silent error handling for production
+      }
+    })();
   }
 
   // Test function to verify analytics is working
   static testAnalytics() {
-    try {
-      logEvent(analytics, 'test_event', {
-        test_param: 'test_value',
-        timestamp: new Date().toISOString()
-      });
-      return true;
-    } catch (error) {
-      return false;
-    }
+    void (async () => {
+      const a = await ensureAnalytics();
+      if (!a || !analyticsModule) return;
+      try {
+        analyticsModule.logEvent(a, 'test_event', {
+          test_param: 'test_value',
+          timestamp: new Date().toISOString()
+        });
+      } catch {
+        // ignore
+      }
+    })();
+    return true;
   }
 }
 

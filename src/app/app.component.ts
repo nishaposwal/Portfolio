@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -46,12 +47,15 @@ import { filter, Subscription } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Nisha Poswal - Frontend Developer Portfolio';
   private routerSubscription: Subscription | undefined;
+  private readonly platformId = inject(PLATFORM_ID);
 
   isMobileMenuOpen = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/netflix-portfolio",
+    "public": "dist/netflix-portfolio/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

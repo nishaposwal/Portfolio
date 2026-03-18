@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-kafka-explained-like-youre-5',
@@ -638,7 +639,36 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./kafka-explained-like-youre-5.component.scss']
 })
 export class KafkaExplainedLikeYoure5Component {
+  private readonly meta = inject(Meta);
+  private readonly title = inject(Title);
+
   readingProgress = 0;
+
+  constructor() {
+    const url = 'https://nishaposwal-4e71c.web.app/blogs/kafka-explained-like-youre-5';
+    const image = 'https://nishaposwal-4e71c.web.app/assets/images/kafka-intro.png';
+    const pageTitle = 'Kafka Explained Like You’re 5 · Nisha Poswal';
+    const description =
+      'Kafka explained with everyday analogies: message streams, producers, topics, partitions, consumer groups, and why Kafka scales.';
+
+    this.title.setTitle(pageTitle);
+
+    this.meta.updateTag({ name: 'description', content: description });
+
+    this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Nisha Poswal - Frontend Developer Portfolio' });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
+    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
+  }
 
   @HostListener('window:scroll')
   onWindowScroll(): void {

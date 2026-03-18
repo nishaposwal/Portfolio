@@ -3,11 +3,12 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
-import './firebase.config'; // Initialize Firebase
+import { provideClientHydration } from '@angular/platform-browser'; // Initialize Firebase
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideAnimations()
+    provideAnimations(),
+    provideClientHydration()
   ]
 }; 

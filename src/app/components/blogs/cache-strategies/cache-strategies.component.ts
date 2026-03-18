@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -999,7 +1000,35 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./cache-strategies.component.scss']
 })
 export class CacheStrategiesComponent {
+  private readonly meta = inject(Meta);
+  private readonly title = inject(Title);
+
   readingProgress = 0;
+
+  constructor() {
+    const url = 'https://nishaposwal-4e71c.web.app/blogs/cache-strategies';
+    const image = 'https://nishaposwal-4e71c.web.app/assets/images/cache-strategies.jpeg';
+    const pageTitle = 'Cache Strategies in Distributed Systems · Nisha Poswal';
+    const description =
+      'Six production-grade caching strategies for distributed systems — TTL jitter, probabilistic early expiry, mutex locking, SWR, cache warming — with diagrams and tradeoffs.';
+
+    this.title.setTitle(pageTitle);
+    this.meta.updateTag({ name: 'description', content: description });
+
+    this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Nisha Poswal - Frontend Developer Portfolio' });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
+    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
+  }
 
   @HostListener('window:scroll')
   onWindowScroll(): void {

@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/netflix-portfolio",
+            "outputPath": "dist/netflix-portfolio/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -97,6 +97,70 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/netflix-portfolio/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "netflix-portfolio:build:development",
+              "serverTarget": "netflix-portfolio:server:development"
+            },
+            "production": {
+              "browserTarget": "netflix-portfolio:build:production",
+              "serverTarget": "netflix-portfolio:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/",
+              "/experience",
+              "/skills",
+              "/projects",
+              "/about",
+              "/contact",
+              "/blogs",
+              "/blogs/thundering-herd",
+              "/blogs/cache-strategies",
+              "/blogs/kafka-explained-like-youre-5"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "netflix-portfolio:build:production",
+              "serverTarget": "netflix-portfolio:server:production"
+            },
+            "development": {
+              "browserTarget": "netflix-portfolio:build:development",
+              "serverTarget": "netflix-portfolio:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

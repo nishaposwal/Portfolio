@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -879,7 +880,35 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./thundering-herd.component.scss']
 })
 export class ThunderingHerdComponent {
+  private readonly meta = inject(Meta);
+  private readonly title = inject(Title);
+
   readingProgress = 0;
+
+  constructor() {
+    const url = 'https://nishaposwal-4e71c.web.app/blogs/thundering-herd';
+    const image = 'https://nishaposwal-4e71c.web.app/assets/images/thundering-herd.jpeg';
+    const pageTitle = 'Understanding the Thundering Herd Problem · Nisha Poswal';
+    const description =
+      'A visual, intuitive guide to the thundering herd (cache stampede) problem — why it happens and how to prevent it with coalescing, locks, jitter, and backoff.';
+
+    this.title.setTitle(pageTitle);
+    this.meta.updateTag({ name: 'description', content: description });
+
+    this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Nisha Poswal - Frontend Developer Portfolio' });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
+    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
+  }
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
