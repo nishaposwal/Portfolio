@@ -30,8 +30,8 @@ import { AnalyticsService } from '../../firebase.config';
             </div>
             <div class="contact-details">
               <h3>Email</h3>
-                             <p class="contact-value">nishaposwal321&#64;example.com</p>
-                             <a href="mailto:nishaposwal321&#64;example.com" class="contact-link" (click)="logEmailClick()">
+                             <p class="contact-value">nishaposwal321&#64;gmail.com</p>
+                             <a href="mailto:nishaposwal321&#64;gmail.com" class="contact-link" (click)="logEmailClick()">
                 Send Email <i class="fas fa-external-link-alt"></i>
               </a>
             </div>
